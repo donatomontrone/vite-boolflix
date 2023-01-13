@@ -1,9 +1,14 @@
+<!-- Importo lo store.js e axios per effettuare la chiamata AJAX all'API e salvo i dati in un array che è contenuto nello store. -->
 <script>
 import { store } from './store.js';
 import axios from 'axios';
+import HeaderComponent from './components/HeaderComponent.vue';
+import MainComponent from './components/MainComponent.vue';
 export default {
+  // COmponents figli diretti dell'App.vue
   components: {
-
+    HeaderComponent,
+    MainComponent
   },
   data() {
     return {
@@ -33,9 +38,11 @@ export default {
 }
 </script>
 <template>
-  <h1>App.vue</h1>
+  <HeaderComponent />
+  <MainComponent />
 </template>
 
+<!-- Nello Style importo i miei fogli custom di scss e Bootstrap -->
 <style lang="scss">
 @use './styles/partials/variables.scss' as *;
 @use './styles/general.scss' as *;
