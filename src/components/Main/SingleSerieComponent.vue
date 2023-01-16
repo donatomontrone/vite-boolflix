@@ -17,7 +17,7 @@
                 </div>
                 <!-- Faccio diventare il numero del rating da 1 a 5 aprrosimandolo anche per eccesso. -->
                 <h5 class="card-title">{{ serieVote }}</h5>
-                <font-awesome-icon icon="fa-solid fa-star" v-for="star in serieVote" />
+                <i v-for="(star, index) in 5" class="fa-star" :class="index < serieVote ? 'fas' : 'far'"></i>
             </div>
         </div>
     </div>
