@@ -7,7 +7,10 @@
                 <h5 class="card-title" :class="(cardInfo.title === cardInfo.original_title ? 'd-none' : '')">{{
                     cardInfo.original_title
                 }}</h5>
-                <h5 class="card-title">{{ cardInfo.original_language }}</h5>
+                <h5> {{ cardInfo.original_language }}</h5>
+                <img v-if="languages.includes(cardInfo.original_language)"
+                    :src="getImagePath(cardInfo.original_language)">
+                <img v-else :src="getImagePath('xx')">
                 <h5 class="card-title">{{ cardInfo.vote_average }}</h5>
             </div>
         </div>
@@ -21,6 +24,12 @@ export default {
     ],
     data() {
         return {
+            languages: ['de', 'en', 'es', 'fr', 'it', 'ja', 'nl', 'pt', 'ru', 'zh']
+        }
+    },
+    methods: {
+        getImagePath: function (img) {
+            return new URL((`../assets/flag-icon/${img}.svg`), import.meta.url).href;
         }
     },
 }
