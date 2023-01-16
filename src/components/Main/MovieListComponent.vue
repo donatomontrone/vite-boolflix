@@ -2,17 +2,18 @@
     <!-- Eseguire in v for sulla singola card -->
     <div class="container">
         <div class="row">
-            <SingleCardComponent v-for="card in store.cards" :cardInfo="card" />
+            <h2 v-if="store.movies.length > 0">Film</h2>
+            <SingleMovieComponent v-for="movie in store.movies" :movieInfo="movie" />
         </div>
     </div>
 </template>
 <script>
-import { store } from '../store.js';
-import SingleCardComponent from './SingleCardComponent.vue';
+import { store } from '../../store.js';
+import SingleMovieComponent from './SingleMovieComponent.vue';
 export default {
-    name: 'CardListComponent',
+    name: 'MovieListComponent',
     components: {
-        SingleCardComponent,
+        SingleMovieComponent,
     },
     data() {
         return {

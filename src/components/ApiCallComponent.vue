@@ -1,12 +1,12 @@
 <template>
-    <HeaderComponent @searchMovie="getMovies" />
+    <HeaderComponent @searchMovie="getMoviesAndSeries" />
     <MainComponent />
 </template>
 <script>
 import { store } from '../store.js';
 import axios from 'axios';
 import HeaderComponent from './HeaderComponent.vue';
-import MainComponent from './MainComponent.vue';
+import MainComponent from './Main/MainComponent.vue';
 export default {
     // Components figli diretti dell'APiCallComponent.vue
     components: {
@@ -16,13 +16,15 @@ export default {
     data() {
         return {
             store,
-            apiUrl: 'https://api.themoviedb.org/3/search/movie',
+            apiMoviesUrl: 'https://api.themoviedb.org/3/search/movie',
+            apiSeriesUrl: 'https://api.themoviedb.org/3/search/tv',
             personalKey: 'a24620df747ffd09f092e18dcb8eab65',
         }
     },
     methods: {
-        getMovies(queryInput) {
-            axios.get(this.apiUrl, {
+        getMoviesAndSeries(queryInput) {
+            //Chiamata per i film
+            axios.get(this.apiMoviesUrl, {
                 params: {
                     api_key: this.personalKey,
                     query: queryInput,
@@ -30,18 +32,34 @@ export default {
             })
                 .then((response) => {
                     // this.store.arraydovesalvare = (response.data.'cercare il dato che mi interessa');
-                    this.store.cards = (response.data.results);
+                    this.store.movies = (response.data.results);
                     console.log(response.data.results)
 
                 })
                 .catch(function (error) {
-                    // handle error
                     console.error(error);
+                });
+
+            //Chiamata per le serie tv
+            axios.get(this.apiSeriesUrl, {
+                params: {
+                    api_key: this.personalKey,
+                    query: queryInput,
+                }
+            })
+                .then((response) => {
+                    // this.store.arraydovesalvare = (response.data.'cercare il dato che mi interessa');
+                    this.store.series = (response.data.results);
+                    console.log(response.data.results)
+
                 })
-        }
+                .catch(function (error) {
+                    console.error(error);
+                });
+        },
     },
     created() {
-        this.getMovies();
+        this.getMoviesAndSeries();
     }
 }
 </script>

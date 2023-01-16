@@ -1,16 +1,18 @@
 <template>
     <main>
-        <h2>Main</h2>
         <!-- Inserire il components che continete la cardList presa dalla chiamata Ajax -->
-        <CardListComponent />
+        <SerieListComponent />
+        <MovieListComponent />
     </main>
 </template>
 <script>
-import CardListComponent from './CardListComponent.vue';
+import MovieListComponent from './SerieListComponent.vue';
+import SerieListComponent from './MovieListComponent.vue';
 export default {
     name: 'MainComponent',
     components: {
-        CardListComponent,
+        MovieListComponent,
+        SerieListComponent,
     }
 }
 </script>
