@@ -3,7 +3,9 @@
     <div class="container">
         <div class="row">
             <h2 v-if="store.series.length > 0">Serie TV</h2>
-            <SingleSerieComponent v-for="serie in store.series" :serieInfo="serie" />
+            <SingleSerieComponent v-for="serie in store.series" :serieLanguage="serie.original_language"
+                :serieName="serie.name" :serieOriginalName="serie.original_name" :seriePoster="serie.poster_path"
+                :serieVote="Math.ceil(serie.vote_average / 2)" :serieOverview="serie.overview" />
         </div>
     </div>
 </template>

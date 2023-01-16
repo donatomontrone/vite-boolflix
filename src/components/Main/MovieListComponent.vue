@@ -3,7 +3,9 @@
     <div class="container">
         <div class="row">
             <h2 v-if="store.movies.length > 0">Film</h2>
-            <SingleMovieComponent v-for="movie in store.movies" :movieInfo="movie" />
+            <SingleMovieComponent v-for="movie in store.movies" :movieLanguage="movie.original_language"
+                :movieTitle="movie.title" :movieOriginalTitle="movie.original_title" :moviePoster="movie.poster_path"
+                :movieVote="Math.ceil(movie.vote_average / 2)" :movieOverview="movie.overview" />
         </div>
     </div>
 </template>
