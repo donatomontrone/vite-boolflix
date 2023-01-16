@@ -14,7 +14,7 @@ export default {
 
 <!-- Nello Style importo i miei fogli custom di scss e Bootstrap -->
 <style lang="scss">
-@use './styles/partials/variables.scss' as *;
-@use './styles/general.scss' as *;
 @use 'bootstrap/scss/bootstrap.scss' as *;
+@use './styles/general.scss' as *;
+@use './styles/partials/variables.scss' as *;
 </style>

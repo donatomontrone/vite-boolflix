@@ -1,6 +1,6 @@
 <template>
+    <!-- Inserire il components che continete la cardList presa dalla chiamata Ajax -->
     <main>
-        <!-- Inserire il components che continete la cardList presa dalla chiamata Ajax -->
         <SerieListComponent />
         <MovieListComponent />
     </main>

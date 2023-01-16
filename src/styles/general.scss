@@ -10,6 +10,8 @@
 
 body {
     font-family: 'Helvetica Neue', 'Segoe UI', 'Roboto', 'Ubuntu', sans-serif;
+    background-color: $dark-color;
+    color: $light-color;
 }
 
 div.flag-img {
