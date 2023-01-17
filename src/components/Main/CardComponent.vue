@@ -93,11 +93,10 @@ div.hover {
 
 div.info:hover .hover {
     opacity: 1;
-    transform: scale(1.1);
 }
 
 div.info:hover {
-    transform: scale(1.1);
+    transform: scale(1.3);
     z-index: 1;
 }
 
