@@ -1,5 +1,5 @@
 <template>
-    <HeaderComponent @searchMovie="getCall" />
+    <HeaderComponent @searchMovie="getCall" @popular="homeButton" />
     <MainComponent />
 </template>
 <script>
@@ -18,7 +18,8 @@ export default {
             store,
             apiUrl: 'https://api.themoviedb.org/3/search/',
             personalKey: 'a24620df747ffd09f092e18dcb8eab65',
-            apiTrending: 'https://api.themoviedb.org/3/trending/all/week'
+            apiTrending: 'https://api.themoviedb.org/3/trending/all/week',
+            apiGenres: 'https://api.themoviedb.org/3/genre/'
         }
     },
     methods: {
@@ -31,11 +32,10 @@ export default {
                 .then((response) => {
                     // this.store.arraydovesalvare = (response.data.'cercare il dato che mi interessa');
                     this.store.popular = (response.data.results);
-                    console.log(this.store.popular)
-
+                    console.log((response.data.results))
                 })
                 .catch(function (error) {
-                    console.error('Trending' + error);
+                    console.error(error);
                 });
         },
         callMoviesAndSeries(type, queryInput) {
@@ -65,10 +65,37 @@ export default {
         getCall(queryInput) {
             this.callMoviesAndSeries('movie', queryInput);
             this.callMoviesAndSeries('tv', queryInput);
-        }
+            this.clearInput();
+        },
+        homeButton() {
+            this.getPopular();
+            this.store.movies = [];
+            this.store.series = [];
+            this.clearInput();
+        },
+        clearInput() {
+            this.store.userInput = '';
+        },
+        getGenres(type) {
+            axios.get(this.apiGenres + type + '/list', {
+                params: {
+                    api_key: this.personalKey
+                }
+            })
+                .then((response) => {
+                    // this.store.arraydovesalvare = (response.data.'cercare il dato che mi interessa');
+                    this.store.genres = (response.data.genres);
+                    console.log(response.data.genres)
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        },
     },
     created() {
         this.getPopular()
+        this.getGenres('movie');
+        this.getGenres('tv');
     }
 
 }

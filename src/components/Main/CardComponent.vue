@@ -2,7 +2,7 @@
     <div class="col-6 col-sm-4 col-md-3 col-lg-2 d-flex card-container">
         <div class="info d-flex flex-column w-100 h-100">
             <img :src="cardInfo.poster_path != null ? `https://image.tmdb.org/t/p/w342${cardInfo.poster_path}` : getPath('no-cover.jpg')"
-                class="img-fluid" :alt="titleOrName()">
+                class="h-100" :alt="titleOrName()">
             <div class="hover">
                 <p class="card-title">{{ titleOrName() }}</p>
                 <p class="card-title" :class="(titleOrName() === OriginalTitleOrName() ? 'd-none' : '')">{{
@@ -12,12 +12,12 @@
                     <p>Vote: <i v-for="(star, index) in 5" class="fa-star"
                             :class="index < getVote() ? 'fas' : 'far'"></i>
                     </p>
-                    <p>{{ cardInfo.overview }}</p>
-                    <div class="flag-img">
-                        <span class="d-inline-block">Language: </span>
-                        <img :src="languages.includes(cardInfo.original_language) ? getPath('flag-icon/' + cardInfo.original_language + '.svg') : getPath('flag-icon/xx.svg')"
-                            :alt="cardInfo.original_language + 'flag'" class="d-inline-block">
-                    </div>
+                </div>
+                <p>{{ cardInfo.overview }}</p>
+                <div class="language-flag">
+                    <span class="d-inline-block">Language: </span>
+                    <img :src="`https://crowdin.com/images/flags/${cardInfo.original_language}.png`"
+                        :alt="cardInfo.original_language + 'flag'" class="flag-img ms-2 d-inline-block">
                 </div>
             </div>
         </div>
@@ -62,17 +62,17 @@ export default {
 @use '../../styles/partials/variables' as *;
 
 div.card-container {
-    height: 300px;
+    height: 250px;
 }
 
-div.flag-img {
+img.flag-img {
     width: 30px;
 }
 
 div.info {
     position: relative;
     transition: 1s ease;
-    overflow: scroll;
+    height: 100%;
 }
 
 div.hover {
@@ -81,6 +81,7 @@ div.hover {
     display: flex;
     flex-direction: column;
     position: absolute;
+    overflow: scroll;
     height: 100%;
     width: 100%;
     opacity: 0;
