@@ -50,10 +50,8 @@ export default {
                     .then((response) => {
                         if (type === 'movie') {
                             this.store.movies = (response.data.results);
-                            console.log(this.store.movies)
                         } else {
                             this.store.series = (response.data.results);
-                            console.log(response.data.results)
                         }
                     })
                     .catch(function (error) {
@@ -66,6 +64,7 @@ export default {
             this.callMoviesAndSeries('movie', queryInput);
             this.callMoviesAndSeries('tv', queryInput);
             this.clearInput();
+            this.store.popular = [];
         },
         homeButton() {
             this.getPopular();
@@ -76,26 +75,9 @@ export default {
         clearInput() {
             this.store.userInput = '';
         },
-        getGenres(type) {
-            axios.get(this.apiGenres + type + '/list', {
-                params: {
-                    api_key: this.personalKey
-                }
-            })
-                .then((response) => {
-                    // this.store.arraydovesalvare = (response.data.'cercare il dato che mi interessa');
-                    this.store.genres = (response.data.genres);
-                    console.log(response.data.genres)
-                })
-                .catch(function (error) {
-                    console.error(error);
-                });
-        },
     },
     created() {
         this.getPopular()
-        this.getGenres('movie');
-        this.getGenres('tv');
     }
 
 }

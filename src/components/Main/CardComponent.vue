@@ -1,7 +1,7 @@
 <template>
     <div class="col-6 col-sm-4 col-md-3 col-lg-2 d-flex card-container">
         <div class="info d-flex flex-column w-100 h-100">
-            <img :src="cardInfo.poster_path != null ? `https://image.tmdb.org/t/p/w342${cardInfo.poster_path}` : getPath('no-cover.jpg')"
+            <img :src="cardInfo.poster_path != null ? `https://image.tmdb.org/t/p/w342${cardInfo.poster_path}` : getImagePath('no-cover.jpg')"
                 class="h-100" :alt="titleOrName()">
             <div class="hover">
                 <p class="card-title">{{ titleOrName() }}</p>
@@ -16,7 +16,7 @@
                 <p>{{ cardInfo.overview }}</p>
                 <div class="language-flag">
                     <span class="d-inline-block">Language: </span>
-                    <img :src="`https://crowdin.com/images/flags/${cardInfo.original_language}.png`"
+                    <img :src="(cardInfo.original_language === 'zh' || 'cn') ? getImagePath('/flag-icon/zh.svg') : `https://crowdin.com/images/flags/${cardInfo.original_language}.png`"
                         :alt="cardInfo.original_language + 'flag'" class="flag-img ms-2 d-inline-block">
                 </div>
             </div>
@@ -24,6 +24,7 @@
     </div>
 </template>
 <script>
+import { store } from '../../store.js';
 export default {
     name: 'CardComponent',
     props: [
@@ -32,12 +33,11 @@ export default {
     data() {
         return {
             languages: ['de', 'en', 'es', 'fr', 'it', 'ja', 'nl', 'pt', 'ru', 'zh'],
+            store,
+
         }
     },
     methods: {
-        getPath: function (img) {
-            return new URL((`../../assets/${img}`), import.meta.url).href;
-        },
         getVote() {
             return Math.ceil(this.cardInfo.vote_average / 2);
         },
@@ -54,8 +54,11 @@ export default {
             } else {
                 return this.cardInfo.original_name
             }
-        }
-    },
+        },
+        getImagePath: function (img) {
+            return new URL((`../../assets/${img}`), import.meta.url).href;
+        },
+    }
 }
 </script>
 <style lang="scss" scoped>
