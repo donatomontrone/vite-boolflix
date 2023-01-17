@@ -1,7 +1,7 @@
 <template>
     <div class="col-6 col-sm-4 col-md-3 col-lg-2 d-flex card-container">
         <div class="info d-flex flex-column w-100 h-100">
-            <img :src="cardInfo.poster_path != null ? `https://image.tmdb.org/t/p/w342/${cardInfo.poster_path}` : getPath('no-cover.jpg')"
+            <img :src="cardInfo.poster_path != null ? `https://image.tmdb.org/t/p/w342${cardInfo.poster_path}` : getPath('no-cover.jpg')"
                 class="img-fluid" :alt="titleOrName()">
             <div class="hover">
                 <p class="card-title">{{ titleOrName() }}</p>

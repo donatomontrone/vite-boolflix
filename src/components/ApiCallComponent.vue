@@ -22,22 +22,22 @@ export default {
         }
     },
     methods: {
-        // getPopular() {
-        // //     axios.get(this.apiTrending, {
-        // //         params: {
-        // //             api_key: this.personalKey
-        // //         }
-        // //     })
-        // //         .then((response) => {
-        // //             // this.store.arraydovesalvare = (response.data.'cercare il dato che mi interessa');
-        // //             this.store.movies = (response.data.results);
-        // //             console.log(response.data.results)
+        getPopular() {
+            axios.get(this.apiTrending, {
+                params: {
+                    api_key: this.personalKey
+                }
+            })
+                .then((response) => {
+                    // this.store.arraydovesalvare = (response.data.'cercare il dato che mi interessa');
+                    this.store.movies = (response.data.results);
+                    console.log(response.data.results)
 
-        // //         })
-        // //         .catch(function (error) {
-        // //             console.error('Trending' + error);
-        // //         });
-        // // },
+                })
+                .catch(function (error) {
+                    console.error('Trending' + error);
+                });
+        },
         callMoviesAndSeries(type, queryInput) {
             //Chiamata per i film
             if (queryInput != '') {
@@ -68,7 +68,7 @@ export default {
         }
     },
     created() {
-        // this.getPopular()
+        this.getPopular()
     }
 
 }
