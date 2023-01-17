@@ -6,7 +6,7 @@
                 <a class="navbar-brand text-white"><img src="/boolflix.png" alt="Boolflix Logo"></a>
                 <div class="d-flex" role="search">
                     <input class="form-control me-2" placeholder="Search" v-model="userInput"
-                        @keyup.enter="$emit('searchMovie', userInput)">
+                        @keyup="$emit('searchMovie', userInput)">
                     <a class="btn text-white" @click="$emit('searchMovie', userInput)"><i
                             class="fa-solid fa-magnifying-glass"></i></a>
                 </div>

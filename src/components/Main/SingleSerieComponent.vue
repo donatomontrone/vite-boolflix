@@ -1,24 +1,24 @@
 <template>
-    <!-- Inserire il template per ogni singola card, dati presi dallo store -->
-    <div class="col-6 col-sm-4 col-md-3 col-lg-2 d-flex">
-        <div class="serie-info d-flex flex-column">
-            <img v-if="seriePoster != null" :src="`https://image.tmdb.org/t/p/w342/${seriePoster}`" class="img-fluid"
-                :alt="serieName">
-            <img v-else :src="getPath('no-cover.jpg')" :alt="serieName">
-            <!-- <div class="hover">
-            <h5 class="card-title">{{ serieName }}</h5>
-            <h5 class="card-title" :class="(serieName === serieOriginalName ? 'd-none' : '')">{{ serieOriginalName }}
-            </h5>
-
-                <div class="flag-img">
-                    <img v-if="languages.includes(serieLanguage)" :src="getPath('flag-icon/' + serieLanguage + '.svg')"
-                        :alt="serieLanguage + 'flag'">
-                    <img v-else :src="getPath('flag-icon/xx.svg')" :alt="serieLanguage + 'flag'">
-                </div>
+    <div class="col-6 col-sm-4 col-md-3 col-lg-2 d-flex card-container">
+        <div class="serie-info d-flex flex-column  w-100 h-100">
+            <img :src="seriePoster != null ? `https://image.tmdb.org/t/p/w342/${seriePoster}` : getPath('no-cover.jpg')"
+                class="img-fluid" :alt="serieName">
+            <div class="hover overflow-auto">
+                <p class="card-title">{{ serieName }}</p>
+                <p class="card-title" :class="(serieName === serieOriginalName ? 'd-none' : '')">{{ serieOriginalName }}
+                </p>
                 <div class="stars-container">
-                    <i v-for="(star, index) in 5" class="fa-star" :class="index < serieVote ? 'fas' : 'far'"></i>
+                    <p>Vote: <i v-for="(star, index) in 5" class="fa-star"
+                            :class="index < serieVote ? 'fas' : 'far'"></i>
+                    </p>
                 </div>
-            </div> -->
+                <p>{{ serieOverview }}</p>
+                <div class="flag-img">
+                    <span class="d-inline-block">Language: </span>
+                    <img :src="languages.includes(serieLanguage) ? getPath('flag-icon/' + serieLanguage + '.svg') : getPath('flag-icon/xx.svg')"
+                        :alt="serieLanguage + 'flag'" class="d-inline-block">
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -35,7 +35,8 @@ export default {
     },
     data() {
         return {
-            languages: ['de', 'en', 'es', 'fr', 'it', 'ja', 'nl', 'pt', 'ru', 'zh']
+            languages: ['de', 'en', 'es', 'fr', 'it', 'ja', 'nl', 'pt', 'ru', 'zh'],
+            activeHover: false,
         }
     },
     methods: {

@@ -1,8 +1,12 @@
 <template>
     <!-- Inserire il components che continete la cardList presa dalla chiamata Ajax -->
     <main>
-        <SerieListComponent />
-        <MovieListComponent />
+        <div class="container-sm">
+            <div class="row gx-1 gy-5">
+                <SerieListComponent />
+                <MovieListComponent />
+            </div>
+        </div>
     </main>
 </template>
 <script>
