@@ -16,7 +16,7 @@ export default {
     },
     computed: {
         MoviesAndSeriesTv() {
-            return [...this.store.movies, ...this.store.series]
+            return [...this.store.movies, ...this.store.series, ...this.store.popular]
         }
     }
 }

@@ -30,8 +30,8 @@ export default {
             })
                 .then((response) => {
                     // this.store.arraydovesalvare = (response.data.'cercare il dato che mi interessa');
-                    this.store.movies = (response.data.results);
-                    console.log(response.data.results)
+                    this.store.popular = (response.data.results);
+                    console.log(this.store.popular)
 
                 })
                 .catch(function (error) {
@@ -50,7 +50,7 @@ export default {
                     .then((response) => {
                         if (type === 'movie') {
                             this.store.movies = (response.data.results);
-                            console.log(response.data.results)
+                            console.log(this.store.movies)
                         } else {
                             this.store.series = (response.data.results);
                             console.log(response.data.results)
