@@ -4,12 +4,12 @@
             <img :src="cardInfo.poster_path != null ? `https://image.tmdb.org/t/p/w342${cardInfo.poster_path}` : getImagePath('no-cover.jpg')"
                 class="h-100" :alt="titleOrName()">
             <div class="hover">
-                <p class="card-title">{{ titleOrName() }}</p>
-                <p class="card-title" :class="(titleOrName() === OriginalTitleOrName() ? 'd-none' : '')">{{
+                <p class="card-title fw-bold ">{{ titleOrName() }}</p>
+                <p class="card-title fw-bold" :class="(titleOrName() === OriginalTitleOrName() ? 'd-none' : '')">{{
                     OriginalTitleOrName()
                 }} </p>
                 <div class="stars-container">
-                    <p>Vote: <i v-for="(star, index) in 5" class="fa-star"
+                    <p class="fw-bold">Vote: <i v-for="(star, index) in 5" class="fa-star"
                             :class="index < getVote() ? 'fas' : 'far'"></i>
                     </p>
                 </div>
@@ -19,12 +19,19 @@
                     <img :src="(cardInfo.original_language == ('zh' || 'cn')) ? getImagePath('/flag-icon/zh.svg') : `https://crowdin.com/images/flags/${cardInfo.original_language}.png`"
                         :alt="cardInfo.original_language + 'flag'" class="flag-img ms-2 d-inline-block">
                 </div>
+                <div>
+                    <p class="fw-bold">Actors:</p>
+                    <ul class="p-0 m-0">
+                        <li class="p-2 m-0" v-for="actor in actors">{{ actor.name }} </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </template>
 <script>
 import { store } from '../../store.js';
+import axios from 'axios'
 export default {
     name: 'CardComponent',
     props: [
@@ -34,7 +41,9 @@ export default {
         return {
             languages: ['de', 'en', 'es', 'fr', 'it', 'ja', 'nl', 'pt', 'ru', 'zh'],
             store,
-
+            apiUrl: 'https://api.themoviedb.org/3',
+            personalKey: 'a24620df747ffd09f092e18dcb8eab65',
+            actors: [],
         }
     },
     methods: {
@@ -58,6 +67,29 @@ export default {
         getImagePath: function (img) {
             return new URL((`../../assets/${img}`), import.meta.url).href;
         },
+        getActors() {
+            const type = this.isMovie ? 'tv' : 'movie'
+            axios.get(`${this.apiUrl}/${type}/${this.cardInfo.id}/credits`, {
+                params: {
+                    api_key: this.personalKey
+                }
+            })
+                .then((response) => {
+                    console.log((response.data.cast));
+                    this.actors = (response.data.cast.slice(0, 5));
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        },
+    },
+    computed: {
+        isMovie() {
+            return (this.cardInfo.title == undefined) ? true : false;
+        }
+    },
+    created() {
+        this.getActors();
     }
 }
 </script>
@@ -101,6 +133,10 @@ div.info:hover .hover {
 div.info:hover {
     transform: scale(1.3);
     z-index: 1;
+}
+
+ul {
+    list-style: none;
 }
 
 .fa-star {

@@ -13,7 +13,7 @@ import ListComponent from './ListComponent.vue';
 export default {
     name: 'MainComponent',
     components: {
-        ListComponent
+        ListComponent,
     }
 }
 </script>
