@@ -16,7 +16,7 @@
                 <p>{{ cardInfo.overview }}</p>
                 <div class="language-flag">
                     <span class="d-inline-block">Language: </span>
-                    <img :src="(cardInfo.original_language === 'zh' && 'cn') ? getImagePath('/flag-icon/zh.svg') : `https://crowdin.com/images/flags/${cardInfo.original_language}.png`"
+                    <img :src="(cardInfo.original_language == ('zh' || 'cn')) ? getImagePath('/flag-icon/zh.svg') : `https://crowdin.com/images/flags/${cardInfo.original_language}.png`"
                         :alt="cardInfo.original_language + 'flag'" class="flag-img ms-2 d-inline-block">
                 </div>
             </div>
